@@ -1,0 +1,44 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Execute SQL Query</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h2>Execute SQL Query</h2>
+    <form method="POST" action="/execute-query">
+        <label for="query">SQL Query:</label><br>
+        <textarea id="query" name="query" rows="4" cols="50" required></textarea><br>
+        <input type="submit" value="Execute">
+    </form>
+
+    {{if .Error}}
+        <div class="error">{{.Error}}</div>
+    {{else}}
+        <table>
+            <thead>
+                <tr>
+                    {{range .Columns}}
+                        <th>{{.}}</th>
+                    {{end}}
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Results}}
+                    <tr>
+                        {{range $key, $value := .}}
+                            <td>{{ $value }}</td>
+                        {{end}}
+                    </tr>
+                {{end}}
+            </tbody>
+        </table>
+        
+    {{end}}
+</body>
+</html>
+ 
+
+
+
